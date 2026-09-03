@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-image: url('mazebackground.jpg'); 
+            background-position: center;
+            background-size: 100% 100%;
+            background-repeat:no-repeat;
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .button{
+            position:absolute;
+            left: 50%;
+            top:60%;
+            
+            width: auto;
+            background-color: black;
+            border-style: solid;
+            border-color: rgb(217, 200, 16);
+            border-width: 2px;
+            color:white;
+            text-align: center;
+            font-size: clamp(18px,4vw,35px);
+            font-style: oblique;
+            padding: clamp(8px,2vw,18px)
+                     clamp(16px, 5vw,60px);
+            border-radius: 20px;
+            animation-name: startButton;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+        }
+
+        .Home, .Work, .About, .Contact{
+            position:relative;
+            width: auto;
+            height: auto;
+            background-color: black;
+            border-style: solid;
+            border-color: rgb(217, 200, 16);
+            
+            color:white;
+            text-align: center;
+            font-size: clamp(14px,1.5vw,20px);
+            font-style: oblique;
+            border-radius: 20px;
+            padding-left: clamp(8px,1vw,15px);
+            padding-right: clamp(8px,1vw,15px);
+            white-space: nowrap;
+            animation-name: myButton;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+        }
+
+        .button:hover{
+            background-color: rgb(0, 21, 255);
+            border-color: rgb(0, 0, 0);
+            color:white;
+        }
+
+        .sprite{
+            /*32x32 per frame, 96x128 for entire sheet, 10 frames, 3 columns, 4 rows*/
+
+            width: 32px;
+            height: 32px;
+            position:absolute;
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+            background: url(slack.png);
+            image-rendering: pixelated; /*prevents sprite being blurry*/
+            animation: /*step-end to match image dimensions properly*/
+                idlefront 2s step-end forwards 1,
+                moveup 2s step-end 2s 1,
+                slideup1 2s linear forwards 2s 1,
+                moveleft 2s step-end 4s 1,
+                slideleft 2s linear forwards 4s 1, /*not a frame its a movement, needs to look linear, forwards locks in place*/
+                movedown 2s step-end 6s 1,
+                slidedown 2s linear forwards 6s 1,
+                moveright 2s step-end 8s 1, /*delay allows time before it moves*/
+                slideright 2s linear forwards 8s 1,
+                moveup 2s step-end 10s 1,
+                slideup2 2s linear forwards 10s 1,
+                moveleft 2s step-end 12s 1,
+                slideleft2 2s linear forwards 12s 1,
+                movedown 2s step-end 14s 1,
+                slidedown2 2s linear forwards 14s 1;
+            }
+
+            .resize{
+                display:flex;
+                position: absolute;
+                flex-direction: row;
+                align-items:center;
+                gap: 10px;
+                right:2%;
+                top:0;
+            }
+        
+        /*actually moves*/
+        @keyframes slideleft {
+            0%   { left: 50%; }
+            100% { left: 44%; }
+        }
+        
+        @keyframes slideleft2 {
+            0%   { left: 55%; }
+            100% { left: 50%; }
+        }
+
+        @keyframes slideright {
+            0%   { left: 45%; }
+            100% { left: 56%; }
+        }
+
+        @keyframes slidedown {
+            0%   { top: 42%; }
+            100% { top: 55%; }
+        }
+        @keyframes slidedown2 {
+            0%   { top: 42%; }
+            100% { top: 50%; }
+        }
+
+        @keyframes slideup1 {
+            0%   { top: 50%; }
+            100% { top: 40%; }
+        }
+        @keyframes slideup2 {
+            0%   { top: 55%; }
+            100% { top: 40%; }
+        }
+
+        /*sprite diirection*/
+        @keyframes idlefront{
+            /*idle facing front*/
+            0% {background-position: 0px 0px;}
+        }
+
+        @keyframes idleback{
+            /*idle facing back*/
+            0% {background-position: 0px -32px;}
+        }
+
+        @keyframes movedown{
+            /*moves down*/
+            0% {background-position: -32px 0px;}
+            50% {background-position: -64px 0px; }
+        }
+
+        @keyframes moveup{
+            /*moves up*/
+            0% {background-position: -32px -32px; }
+            50% {background-position: -64px -32px; }
+        }
+
+        @keyframes moveright{
+            /*moves right*/
+            0% {background-position: -32px -64px; }
+            50% {background-position: -96px -64px; }
+        }
+
+        @keyframes moveleft{
+            /*moves left*/
+            0% {background-position: 0px -96px; }
+            50% {background-position: -64px -64px; }
+        }
+
+        #Logo{
+            position:absolute;
+            left: 50%;
+            width: 30%;
+            max-width:350px;
+            min-width: 150px;
+            height:auto;
+            padding-bottom: 1%;
+            padding-top: 1%;
+            animation-name: myLogo;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            background-color: black;
+            border-radius: 30px;
+            border-style: solid;
+            border-color: rgb(217, 200, 16);
+            
+        }
+
+        @keyframes myLogo{
+            0% {transform: translateX(-50%) translateY(20px);}
+            50% {transform: translateX(-50%) translateY(30px);}
+            100% {transform: translateX(-50%) translateY(20px);}
+        }
+
+        @keyframes myButton{
+            0% {transform: translateY(20px);}
+            50% {transform: translateY(30px);}
+            100% {transform: translateY(20px);}
+        }
+
+        @keyframes startButton{
+            0% {transform: translateX(-50%) translateY(20px);}
+            50% {transform: translateX(-50%) translateY(30px);}
+            100% {transform: translateX(-50%) translateY(20px);}
+        }
+
+        @media (max-width:800px){
+            #Logo{
+                width:20vw;
+                min-width:100px;
+                top:70px;
+            }
+        }
+
+        @media (max-width:600px){
+            .resize{
+                right:2%;
+                left:2%;
+                justify-content:flex-end;
+                gap:5px;
+            }
+
+            .Home, .Work, .About, .Contact{
+                font-size:12px;
+                padding-left:5px;
+                padding-right:5px;
+            }
+
+            #Logo{
+                width:30vw;
+                min-width:100px;
+                top:80px;
+            }
+
+            @keyframes slideleft {
+                0%   { left: 50%; }
+                100% { left: 44%; }
+            }
+
+            @keyframes slideleft2 {
+                0%   { left: 53%; }
+                100% { left: 50%; }
+            }
+
+            @keyframes slideright {
+                0%   { left: 47%; }
+                100% { left: 56%; }
+            }
+
+            @keyframes slidedown {
+                0%   { top: 46%; }
+                100% { top: 55%; }
+            }
+
+            @keyframes slidedown2 {
+                0%   { top: 47%; }
+                100% { top: 50%; }
+            }
+
+            @keyframes slideup1 {
+                0%   { top: 50%; }
+                100% { top: 42%; }
+            }
+
+            @keyframes slideup2 {
+                0%   { top: 53%; }
+                100% { top: 43%; }
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="resize">
+    <a href="index.html">
+        <div class="Home">
+            <p><b><u>Home</u></b></p>
+        </div>
+    </a>
+    
+    <a href="work.html">
+        <div class="Work">
+            <p><b><u>My Work</u></b></p>
+        </div>
+    </a>
+
+    <a href="about.html">
+        <div class="About">
+            <p><b><u>About</u></b></p>
+        </div>
+    </a>
+
+    <a href="contact.html">
+        <div class="Contact">
+            <p><b><u>Contact</u></b></p>
+        </div>
+    </a>
+</div>
+
+<img Id ="Logo" src="slackerlogo.png" alt="Logo">
+    <div class="sprite"></div>
+
+    <p></p> <!--space-->
+
+    <a href="work.html">
+        <div class = "button">
+            <p><b><u>START!</u></b></p>
+        </div>
+    </a>
+    
+</body>
+</html>

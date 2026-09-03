@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-image: url('mazebackground.jpg'); 
+            background-position: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .Home, .Work, .About, .Contact{
+            position:relative;
+            width: auto;
+            height: auto;
+            background-color: black;
+            border-style: solid;
+            border-color: rgb(217, 200, 16);
+            
+            color:white;
+            text-align: center;
+            font-size: clamp(14px,1.5vw,20px);
+            font-style: oblique;
+            border-radius: 20px;
+            padding-left: clamp(8px,1vw,15px);
+            padding-right: clamp(8px,1vw,15px);
+            white-space: nowrap;
+            animation-name: myButton;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+        }
+
+        .resize{
+            display:flex;
+            position: absolute;
+            flex-direction: row;
+            align-items:center;
+            gap: 10px;
+            right:2%;
+            top:0;
+            z-index: 10; /*what area to display (ontop/below)*/
+        }
+
+        .contactForm{
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%,-50%); /*cancels out vals and centers*/
+            width: min(700px,85%); /*minimum width*/
+            height: 78vh;
+            box-sizing: border-box;
+            background-color: black;
+            border-radius: 20px;
+            color: white;
+            font-size: clamp(18px,2vw,30px);
+            border-color: white;
+            display:flex; /*keeps on one line*/
+            align-items: center;
+            justify-content: center; /*puts items in centerrrrr*/
+            gap: clamp(20px,4vw,50px); /*gap between text & img*/
+            padding: clamp(15px,3vw,30px);
+        }
+
+        .inputs{
+            width:100%;
+            max-width: 250px;
+            box-sizing: border-box;
+            color:black;
+            background-color: white;
+            font-size: 15px;
+            padding: 6px;
+        }
+
+        .submit{
+            text-align: center;
+            border-radius: 20px;
+            background-color: white;
+            color: black;
+            border-color: blue;
+            height: auto;
+            width:auto;
+            
+        }
+
+        .spaceforImage2{
+            width: clamp(120px,20vw,250px);
+            flex-shrink: 0; /*shrinks things inside*/
+        }
+
+        .spaceforImage2 img{
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @keyframes myButton{
+            0% {transform: translateY(20px);}
+            50% {transform: translateY(30px);}
+            100% {transform: translateY(20px);}
+        }
+
+        @media (max-width:600px){
+            .contactForm{
+                width: 90%;
+                top:58%;
+                flex-direction: column;
+                gap:10px;
+                padding: 15px;
+                font-size: 18px;
+            }
+
+            .spaceforImage2{
+                width: 120px;
+            }
+
+            .spaceforImage2 img{
+            width: 100%;
+            height: auto;
+            }
+        }
+    </style>
+
+</head>
+<body>
+    <div class="resize">
+        <a href="index.html">
+            <div class="Home">
+                <p><b><u>Home</u></b></p>
+            </div>
+        </a>
+        
+        <a href="work.html">
+            <div class="Work">
+                <p><b><u>My Work</u></b></p>
+            </div>
+        </a>
+
+        <a href="about.html">
+            <div class="About">
+                <p><b><u>About</u></b></p>
+            </div>
+        </a>
+
+        <a href="contact.html">
+            <div class="Contact">
+                <p><b><u>Contact</u></b></p>
+            </div>
+        </a>
+    </div>
+
+    <form action="https://api.web3forms.com/submit" method="POST" class="contactForm">
+        <input type="hidden" name="access_key" value="c054bdbd-ae27-48b4-be8b-a0eb70cc6150">
+        <div class="spaceforImage">
+            <p>Contact Me!</p>
+            <p><u>Email:</u></p>
+            <input type="email" name="email: " class="inputs">
+            <p><u>Phone:</u></p>
+            <input type="tel" name="phone: " class="inputs">
+            <p><u>Inquiry:</u></p>
+            <input type="text" name ="inquiry:" class="inputs">
+            <button type="submit" class="submit">
+                Submit
+            </button>
+        </div>
+        
+        <div class="spaceforImage2">
+            <img src="slackstationary.png">
+        </div>
+    </form>
+</body>
+</html>

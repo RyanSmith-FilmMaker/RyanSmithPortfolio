@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            background-image: url('mazebackground.jpg'); 
+            background-position: center;
+            background-size: 100% 100%;
+            width:100%;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .Home, .Work, .About, .Contact{
+            position:relative;
+            width: auto;
+            height: auto;
+            background-color: black;
+            border-style: solid;
+            border-color: rgb(217, 200, 16);
+            
+            color:white;
+            text-align: center;
+            font-size: clamp(14px,1.5vw,20px);
+            font-style: oblique;
+            border-radius: 20px;
+            padding-left: clamp(8px,1vw,15px);
+            padding-right: clamp(8px,1vw,15px);
+            white-space: nowrap;
+            animation-name: myButton;
+            animation-duration: 6s;
+            animation-iteration-count: infinite;
+        }
+
+        .aboutBox{
+            position:absolute;
+            left:50%;
+            top:clamp(110px,14vh,140px); /*clamp lets account for diiff screen size*/
+            bottom: 3%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            box-sizing: border-box;
+            background-color: black;
+            border-style: solid;
+            border-color: rgb(217, 200, 16);
+            color:white;
+            text-align: center;
+            font-size: clamp(14px,1.5vw,20px);
+            font-style: oblique;
+            border-radius: 20px;
+            padding: clamp(8px,1.5vw,25px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            z-index: 1;
+        }
+
+        .abtText{
+            display:flex; /*keeps on one line*/
+            align-items: center;
+            justify-content: center;
+            gap: clamp(10px,3vw,40px); /*gap between text & img*/
+            width: 100%;
+            font-size: clamp(14px,1.8vw,25px);
+        }
+
+        .textHold{
+            flex: 1;
+            margin: 0;
+            line-height: 1.4;
+            max-width: 700px; /*text cant grow longer than this, so It goes down instead*/
+        }
+
+        .wave{
+            width:min(18vw,25vh,256px);
+            aspect-ratio: 1/1;
+            flex-shrink: 0;
+            animation: wave 0.6s steps(2) infinite;
+            background: url(slackwave.png);
+            background-color: blueviolet;
+            background-repeat: no-repeat;
+            image-rendering: pixelated; /*prevents sprite being blurry*/
+            background-size: 100% 200%;
+            border-radius: 10px;
+        }
+
+        @keyframes wave{
+            from {background-position: center 0%;}
+            to {background-position: center 200%;}
+        }
+
+        @keyframes myButton{
+            0% {transform: translateY(10px);}
+            50% {transform: translateY(15px);}
+            100% {transform: translateY(10px);}
+        }
+
+        .resize{
+            display:flex;
+            position: absolute;
+            flex-direction: row;
+            align-items:center;
+            gap: 10px;
+            right:2%;
+            top:0;
+            z-index: 10;
+        }
+
+        .statsImg{
+            width:min(490px,50vw);
+            max-height: 20vh;
+            object-fit: contain;
+            height: auto;
+        }
+
+        @media (max-width:600px){
+            .resize{
+                right:2%;
+                left:2%;
+                justify-content:flex-end;
+                gap:5px;
+            }
+
+            .Home, .Work, .About, .Contact{
+                font-size:12px;
+                padding-left:5px;
+                padding-right:5px;
+            }
+
+            .aboutBox{
+                width: 90%;
+                top:18%;
+                padding: 10px;
+            }
+
+            .abtText{
+                flex-direction: column;
+                gap:10px;
+            }
+
+            .wave{
+                width: 128px;
+                height: 128px;
+                min-width: 128px;
+                background-size: 128px 256px;
+            }
+
+            .statsImg{
+                width: 90%;
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="resize">
+        <a href="index.html">
+            <div class="Home">
+                <p><b><u>Home</u></b></p>
+            </div>
+        </a>
+        
+        <a href="work.html">
+            <div class="Work">
+                <p><b><u>My Work</u></b></p>
+            </div>
+        </a>
+
+        <a href="about.html">
+            <div class="About">
+                <p><b><u>About</u></b></p>
+            </div>
+        </a>
+
+        <a href="contact.html">
+            <div class="Contact">
+                <p><b><u>Contact</u></b></p>
+            </div>
+        </a>
+    </div>
+
+    <div class="aboutBox">
+        <p><u><b>My Skills</b></u></p>
+        <p><b>Film-Maker, Director, Story-Teller</b></p>
+
+        <div class="abtText">
+            <div class="wave"></div>
+            <p class="textHold">Hey, My names Ryan Smith! I am a professional film-maker who enjoys turning ideas into visual experiences! I am always chasing the next level, and open to all inquiries film related!</p>
+        </div>
+
+        <p></p> <!--space-->
+    
+        <img class="statsImg" src="stats.png">
+    </div>
+    
+
+</body>
+</html>
